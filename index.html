@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiaBot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f9ff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            margin-right: 30px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .appointment-btn {
+            background-color: #00a3d3;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-left: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 0;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: right;
+        }
+
+        .hero-image img {
+            width: 50%;
+            border-radius: 20px;
+            margin-right: 90px;
+        }
+
+        /* Service Cards */
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 50px 0;
+        }
+
+        .service-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 300px; /* Fixed height for uniformity */
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card.primary {
+            background: #00a3d3;
+            color: white;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+        }
+
+        .service-card h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: inherit;
+        }
+
+        .service-card p {
+            flex-grow: 1; /* Pushes the button to the bottom */
+            color: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #00a3d3, #007ab8);
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #007ab8, #005f89);
+            transform: translateY(-3px);
+        }
+
+        /* Medical Services */
+.medical-services {
+    padding: 80px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.about-content {
+    flex: 1;
+    order: 1; /* Ensures content is on the left */
+}
+
+.service-illustration {
+    flex: 1;
+    padding-top: 10px;
+    order: 2; /* Ensures image is on the right */
+}
+
+.service-illustration img {
+    width: 500px;
+    height: 800px;
+    max-height: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2, .medical-services h2 {
+    font-size: 42px;
+    color: #2D2D2D;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.about-content p, .medical-services p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .medical-services {
+        flex-direction: column-reverse;
+        padding: 40px 20px;
+    }
+    
+    .about-content h2, .medical-services h2 {
+        font-size: 32px;
+    }
+    
+    .service-illustration {
+        padding-top: 30px;
+    }
+}
+
+
+        /* Section styling */
+.testimonial {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Title styling */
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Container for testimonial cards */
+.testimonial-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* About us section */
+.about-us {
+    padding: 80px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start; /* Changed from center to flex-start */
+    gap: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.about-image {
+    flex: 1;
+    padding-top: 60px; /* Added padding to move image down */
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about-content h2 {
+    font-size: 42px;
+    color: #2D2D2D;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.about-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .about-us {
+        flex-direction: column-reverse;
+        padding: 40px 20px;
+    }
+    
+    .about-content h2 {
+        font-size: 32px;
+    }
+    
+    .about-image {
+        padding-top: 30px; /* Reduced padding for mobile */
+    }
+}
+
+/* Appointment Section */
+.appointment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #0099cc; /* Adjust the background color */
+    border-radius: 20px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 20px;
+}
+
+.appointment-content {
+    flex: 1;
+}
+
+.appointment-content h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.appointment-content p {
+    font-size: 16px;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.appointment-content .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #ebeff1;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-icon img {
+    width: 150px; /* Adjust size as needed */
+    height: 150px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .appointment {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .calendar-icon {
+        margin-top: 20px;
+    }
+}
+
+/* Each testimonial card styling */
+.testimonial-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: calc(33.333% - 1rem); /* Three columns */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.testimonial-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Button styling */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .testimonial-card {
+        width: calc(50% - 1rem); /* Two columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonial-card {
+        width: 100%; /* Single column on very small screens */
+    }
+}
+
+/* Initially hidden testimonial cards */
+.hidden {
+    display: none;
+}
+
+
+        /* Contact Us Section */
+        .contact-us {
+            display: flex;
+            align-items: center;
+            margin: 50px 0;
+        }
+
+        .contact-form {
+            flex: 1;
+            padding-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-form-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: white;
+            border: 1px solid rgb(97, 96, 96);
+            border-radius: 10px;
+        }
+
+        .contact-form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form-container input,
+        .contact-form-container textarea {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid rgb(97, 96, 96);
+            width: 100%;
+        }
+
+        .contact-form-container button {
+            background-color: #00a3d3;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-image {
+            flex: 1;
+            text-align: right;
+            border: 1px solid rgb(97, 96, 96);
+            border-radius: 10px;
+        }
+
+        .contact-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="MedCare Logo">
+            </div>
+            <div class="nav-links">
+                <a href="/hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#">Services</a>
+                <a href="#">Appointment</a>
+                <a href="#">Testimonials</a>
+                <a href="#">Contact</a>
+            </div>
+            <a href="#" class="appointment-btn">Login/Signup</a>
+        </nav>
+
+               <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1>Your Partner in Diabetes Care</h1>
+                <p>Simplify your health management. Book appointments, upload prescriptions, and access real-time support whenever you need it.</p>
+                <a href="jayIndex" class="btn">Chat with DiaBot</a>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='assets/img.gif') }}" alt="Healthcare professionals">
+            </div>
+        </section>
+
+        <!-- Service Cards Section -->
+        <section class="service-cards">
+            <div class="service-card primary">
+                <img src="{{ url_for('static', filename='assets/time1.png') }}" alt="Appointment Icon" class="card-icon">
+                <h3>24/7 Chatbot Support</h3>
+                <p>Instant assistance for diabetes-related queries, medication info, and health tips anytime.</p>
+            </div>
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='assets/appointment.png') }}" alt="Consultation Icon" class="card-icon">
+                <h3>Effortless Appointment Booking</h3>
+                <p>Easily schedule appointments via call, connecting you to expert care.</p>
+                <a href="second_page.html#section1" class="btn">How to use</a>
+            </div>
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='assets/phone.png') }}" alt="Treatment Icon" class="card-icon">
+                <h3>Calling & Hospital Location</h3>
+                <p>Find nearby hospitals and make direct calls for immediate medical assistance.</p>
+                <a href="second_page.html#section2" class="btn">How to use</a>
+            </div>
+            <div class="service-card">
+                <img src="{{ url_for('static', filename='assets/img_upload.png') }}" alt="Support Icon" class="card-icon">
+                <h3>Prescription Upload</h3>
+                <p>Quickly upload prescriptions to access medication details and find alternate medicines.</p>
+                <a href="second_page.html#section3" class="btn">How to use</a>
+            </div>
+        </section>
+
+
+        <!-- About Us Section -->
+        <section id="about" class="about-us">
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='assets/bot.gif') }}" alt="Diabetes Chatbot Interface" />
+            </div>
+            
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>Welcome to our Diabetes Chatbot website, your trusted source for reliable and personalized diabetes management information. We're dedicated to supporting your wellness journey with practical tools and resources.</p>
+                
+                <p>Explore our expertly crafted guides and tips on diabetes care. From understanding your condition to managing daily health routines, our content is designed to empower you with the knowledge to make informed decisions about your health.</p>
+                
+                <p>Discover lifestyle advice and personalized support to enhance your well-being. We believe that small steps can make a big difference in your diabetes management, and we're here to guide you every step of the way.</p>
+            </div>
+        </section>  
+
+
+        <section class="medical-services">
+            <div class="about-content">
+                <h2>Our Medical Services</h2>
+                <p>Our chatbot offers a range of services designed to enhance your dental and diabetes care experience. Easily schedule appointments via call or chatbot, and find nearby hospitals for immediate assistance. Upload prescriptions to access medication details and alternatives effortlessly. For diabetes management, receive personalized care plans, medication reminders, and access educational resources. Utilize our symptom checker to understand potential conditions and connect with community support groups for motivation and shared experiences.</p>
+                <a href="second_page.html" class="btn">Learn More</a>
+            </div>
+            <div class="service-illustration">
+                <img src="{{ url_for('static', filename='assets/img2.png') }}" alt="Medical services illustration">
+            </div>
+        </section>
+
+
+        <!-- Appointment Section -->
+        <section class="appointment">
+            <div class="appointment-content">
+                <h2>Appointment Schedules</h2>
+                <p>Easy scheduling for your medical appointments. Choose your preferred time and doctor.</p>
+                <a href="appointments1" class="btn">Schedule Now</a>
+            </div>
+            <div class="calendar-icon">
+                <img src="{{ url_for('static', filename='assets/img4.png') }}" alt="Calendar">
+            </div>
+        </section>
+        
+
+ <!-- Testimonials Section -->
+<section class="testimonial">
+    <h2 class="section-title">What Our Users Say</h2>
+    <div class="testimonial-cards">
+        <div class="testimonial-card">
+            <img src="{{ url_for('static', filename='assets/1.png') }}" alt="User">
+            <h3>Sarah Johnson</h3>
+            <p>DiaBot has completely transformed how I manage my diabetes. The 24/7 chatbot support and easy appointment booking have made my healthcare journey so much smoother.</p>
+        </div>
+        <div class="testimonial-card">
+            <img src="{{ url_for('static', filename='assets/2.png') }}" alt="User">
+            <h3>Michael Chen</h3>
+            <p>The prescription upload feature is a game-changer. I can quickly get information about my medications and find alternatives when needed. Excellent service!</p>
+        </div>
+        <div class="testimonial-card">
+            <img src="{{ url_for('static', filename='assets/3.png') }}" alt="User">
+            <h3>Emily Brown</h3>
+            <p>I love how simple DiaBot makes managing appointments! Booking a consultation is a breeze, and the chatbot always has quick responses to my questions.</p>
+        </div>
+        <!-- Extra testimonial cards hidden initially -->
+        <div class="testimonial-card hidden">
+            <img src="{{ url_for('static', filename='assets/4.png') }}" alt="User">
+            <h3>Sarah Johnson</h3>
+            <p>DiaBot has completely transformed how I manage my diabetes. The 24/7 chatbot support and easy appointment booking have made my healthcare journey so much smoother.</p>
+        </div>
+        <div class="testimonial-card hidden">
+            <img src="{{ url_for('static', filename='assets/5.png') }}" alt="User">
+            <h3>Michael Chen</h3>
+            <p>The prescription upload feature is a game-changer. I can quickly get information about my medications and find alternatives when needed. Excellent service!</p>
+        </div>
+        <div class="testimonial-card hidden">
+            <img src="{{ url_for('static', filename='assets/6.png') }}" alt="User">
+            <h3>Emily Brown</h3>
+            <p>I love how simple DiaBot makes managing appointments! Booking a consultation is a breeze, and the chatbot always has quick responses to my questions.</p>
+        </div>
+    </div>
+    <a href="#" class="btn" onclick="showAllTestimonials(event)">See All</a>
+</section>
+
+<script>
+    function showAllTestimonials(event) {
+        event.preventDefault(); // Prevents page from jumping
+        // Select all hidden testimonial cards and display them
+        const hiddenTestimonials = document.querySelectorAll('.testimonial-card.hidden');
+        hiddenTestimonials.forEach(card => {
+            card.classList.remove('hidden');
+        });
+        
+        // Hide the "See All" button after showing all testimonials
+        document.querySelector('.btn').style.display = 'none';
+    }
+</script>
+
+
+        <!-- Contact Us Section -->
+        <section class="contact-us">
+            <div class="contact-form">
+                <div class="contact-form-container">
+                    <h2 class="section-title">Contact Us</h2>
+                    <form>
+                        <input type="text" placeholder="Name">
+                        <input type="email" placeholder="Email">
+                        <textarea placeholder="Message" rows="6"></textarea>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="contact-image">
+                <img src="{{ url_for('static', filename='assets/Gif chat.gif') }}" alt="Contact Us">
+            </div>
+        </section>
+
+
+    </div>
+    <!-- Modal HTML -->
+<div id="authModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        
+        <!-- Toggle Buttons -->
+        <div class="toggle-buttons">
+            <button class="toggle-btn active" onclick="toggleForm('login')">Login</button>
+            <button class="toggle-btn" onclick="toggleForm('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form">
+            <h2>Login</h2>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit" class="submit-btn">Login</button>
+            <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="auth-form" style="display: none;">
+            <h2>Create Account</h2>
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit" class="submit-btn">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add this to your existing style section -->
+<style>
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 5% auto; /* Changed from 15% to 5% to move the form up */
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Toggle Buttons */
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.toggle-btn {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    position: relative;
+}
+
+.toggle-btn.active {
+    color: #00a3d3;
+}
+
+.toggle-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #00a3d3;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.auth-form input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #00a3d3;
+}
+
+.submit-btn {
+    background-color: #00a3d3;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0086ad;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #00a3d3;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<!-- Add this to your existing script section -->
+<script>
+// Get modal elements
+const modal = document.getElementById('authModal');
+const closeBtn = document.querySelector('.close');
+const loginBtn = document.querySelector('.appointment-btn');
+
+// Show modal when login/signup button is clicked
+loginBtn.onclick = function(e) {
+    e.preventDefault();
+    modal.style.display = 'block';
+}
+
+// Close modal when clicking the close button
+closeBtn.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Toggle between login and signup forms
+function toggleForm(formType) {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    
+    toggleBtns.forEach(btn => btn.classList.remove('active'));
+    
+    if (formType === 'login') {
+        loginForm.style.display = 'flex';
+        signupForm.style.display = 'none';
+        toggleBtns[0].classList.add('active');
+    } else {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'flex';
+        toggleBtns[1].classList.add('active');
+    }
+}
+
+// Form submission handlers
+document.getElementById('loginForm').onsubmit = function(e) {
+    e.preventDefault();
+    // Add your login logic here
+    console.log('Login submitted');
+}
+
+document.getElementById('signupForm').onsubmit = function(e) {
+    e.preventDefault();
+    // Add your signup logic here
+    console.log('Signup submitted');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiaBot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        #chat_container {
+            width: 100%;
+            max-width: 800px;
+            max-height: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat_log {
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            border-radius: 20px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat_log::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat_log::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 20px;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #a3d8a5;
+            color: #ffffff;
+            font-weight: 500;
+            border-radius: 15px 15px 0px 15px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #d1e7ff;
+            color: #333;
+            font-weight: 500;
+            border-radius: 15px 15px 15px 0px;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header i {
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        #user_input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+            transition: box-shadow 0.3s;
+        }
+
+        #user_input:focus {
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        .floating-btn {
+            background-color: #28a745;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .floating-btn:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        #voice_btn {
+            background-color: #007bff;
+            border-radius: 50%;
+            padding: 15px;
+            margin-left: 10px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #voice_btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Add Styling for Image Upload Form */
+        form#image_form {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        form#image_form input[type="file"] {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        form#image_form button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form#image_form button:hover {
+            background-color: #0056b3;
+        }
+        .image_upload{
+            width: 50%;
+        }
+        .image_upload{
+            display: flex;
+            justify-content:space-evenly;
+            align-items: center;
+            background-color: #f1f1f1;
+            width: 100%;
+        }
+
+        .book_button{
+            height:40px;
+            border-radius:34px;
+            background-color: #FFD700;
+            color: white;
+            transition:0.2s;
+        }
+        .book_button>a{
+            text-decoration: none;
+        }
+        .book_button:hover{
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href='/'" style="position: absolute; top: 10px; left: 10px; padding: 10px; background-color: white; color: #007bff; border: none; border-radius: 5px; cursor: pointer;">
+        <strong>⬅️ </strong>
+    </button>
+    <div id="chat_container">
+        <div class="header">
+            <i class="fas fa-comments"></i><h2>DiaBot</h2>
+        </div>
+        <div id="chat_log"></div>
+        
+        <div class="footer">
+            <input type="text" id="user_input" placeholder="Type your message here...">
+            <button id="send_btn" class="floating-btn"><i class="fas fa-paper-plane"></i></button>
+            <div id="voice_btn"><i class="fas fa-microphone"></i></div>
+        </div>
+
+        <!-- Image Upload Form -->
+        <div class="image_upload">
+            <form id="image_form" enctype="multipart/form-data">
+                <input type="file" id="prescription_image" accept="image/*">
+                <button type="submit" class="floating-btn"><i class="fas fa-upload"></i> Upload</button>
+            </form>
+            <div class="book_aptm">
+                <button class="book_button"><a href="appointments1">Book an Appointment</a></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sendBtn = document.getElementById('send_btn');
+        const voiceBtn = document.getElementById('voice_btn');
+        const userInput = document.getElementById('user_input');
+        const chatLog = document.getElementById('chat_log');
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = userInput.value;
+            if (message.trim() !== "") {
+                appendMessage(message, 'user');
+                userInput.value = ''; // Clear input
+                fetchResponse(message);
+            }
+        }
+
+        voiceBtn.addEventListener('click', () => {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                const speechToText = event.results[0][0].transcript;
+                userInput.value = speechToText;
+                appendMessage(speechToText, 'user');
+                fetchResponse(speechToText);
+            };
+
+            recognition.start();
+        });
+
+        function appendMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = `${sender === 'user' ? 'User: ' : 'Bot: '}${message}`;
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function fetchResponse(message) {
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_input: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendMessage(data.response, 'bot');
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Handle Image Upload
+        const imageForm = document.getElementById('image_form');
+        const prescriptionImage = document.getElementById('prescription_image');
+
+        imageForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const file = prescriptionImage.files[0];
+            if (file) {
+                uploadImage(file);
+            }
+        });
+
+        function uploadImage(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            fetch('/upload_image', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendImageMessage(file.name, 'user');
+                appendMessage(data.medicine_info, 'bot'); // Assuming the bot returns info about the uploaded image
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function appendImageMessage(imageName, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(prescriptionImage.files[0]);
+            img.style.maxWidth = '80%'; // Set max width for the image
+            img.style.maxHeight = '200px'; // Set max height for the image
+            img.style.borderRadius = '15px'; // Add some style
+
+            messageDiv.innerHTML = `${sender === 'user' ? 'User: ' : 'Bot: '}Uploaded: ${imageName}`;
+            messageDiv.appendChild(img);
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>

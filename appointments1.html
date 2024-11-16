@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Book Appointment</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+    body {
+       font-family: 'Arial', sans-serif;
+       background: linear-gradient(to right, #4facfe, #00f2fe);
+       color: #333;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       padding: 20px;
+       min-height: 100vh;
+       margin: 0;
+    }
+
+    #appointment_container {
+       width: 100%;
+       max-width: 800px;
+       background: rgba(255, 255, 255, 0.9);
+       border-radius: 10px;
+       padding: 20px;
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+       display: flex;
+       flex-direction: column;
+    }
+
+    #search_input {
+       padding: 10px;
+       width: 90%;
+       border-radius: 5px;
+       border: 1px solid #ccc;
+       margin-bottom: 20px;
+       margin-top: 20px;
+       font-size: 16px;
+    }
+
+    .hospital {
+       padding: 15px;
+       background-color: #fff;
+       margin: 10px 0;
+       border-radius: 10px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       display: flex;
+       justify-content: space-between;
+       
+       align-items: center;
+       gap: 15px;
+       box-sizing: border-box;
+    }
+
+    .hospital-name {
+       font-weight: bold;
+       flex: 2;
+    }
+
+    .contact-btn {
+       color: white;
+       border: none;
+       padding: 10px 15px;
+       border-radius: 5px;
+       cursor: pointer;
+       text-align: center;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+    }
+
+    a {
+       color: #007bff;
+       text-decoration: none;
+       text-align: center;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+    }
+
+    a:hover {
+       text-decoration: underline;
+    }
+    .hospital-name {
+        font-weight: bold;
+        flex: 1;
+        min-width: 200px; /* Ensures space for longer names */
+    }
+
+.hospital-name:hover {
+   transform: translateY(-5px);
+   text-decoration: underline;
+   color: #1846c6;
+   
+}
+.icon-container {
+   display: flex;
+   gap: 15px;
+   justify-content: center;
+   align-items: center;
+}
+/* Updated styling to keep the back button fixed */
+.back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 15px;
+      font-size: 24px;
+      background-color: transparent;
+      color: #007bff;
+      border: none;
+      border-radius: none;
+      cursor: pointer;
+      z-index: 1000; /* Ensures it remains on top */
+   }
+
+/* Icon Styling */
+.contact-btn i, .hospital a i {
+        color: #1e3a8a;
+       border: 2px solid #87cefa;
+       background-color: white;
+       border-radius: 50%;
+       width: 28px;
+       height: 28px;
+       font-size: 16px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       box-sizing: border-box;
+       transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+.icon-container i {
+   line-height: 1; /* Prevents icons from misaligning due to line height */
+}
+
+.search-bar-container {
+      margin-left: 35px; /* Leaves space for the fixed back button */
+   }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+       #appointment_container {
+          max-width: 100%;
+          padding: 15px;
+       }
+       #search_input {
+          width: 90%; /* Slightly reduce width on smaller screens */
+       }
+       .hospital {
+          flex-direction: column;
+          align-items: flex-start;
+       }
+       .hospital-name {
+          margin-bottom: 10px;
+          width: 100%;
+       }
+       .contact-btn, a {
+          width: 100%;
+          margin-bottom: 10px;
+       }
+       .contact-btn:last-child, a:last-child {
+          margin-bottom: 0;
+       }
+       .icon-container {
+          justify-content: flex-start;
+          gap: 10px;
+          width: 100%;
+       }
+    }
+
+    /* Hover Effects */
+    .contact-btn:hover i, .hospital a:hover i {
+       transform: translateY(-5px);
+       color: #2841a7;
+       border-color: #1e90ff;
+    }
+
+.icon-container .location-icon {
+   width: 30px; /* Slightly larger width for location icon */
+   height: 50px; /* Slightly larger height for location icon */
+   font-size: 26px; /* Slightly larger font-size for location icon */
+   top: 500px;
+}
+
+</style>
+</head>
+<body>
+    <button class="back-button" onclick="window.location.href='/jayIndex'">
+        <strong>⬅️</strong>
+    </button>
+   <div id="appointment_container">
+      <input type="text" id="search_input" placeholder="Search for a hospital">
+      <div id="hospital_list"></div>
+   </div> 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+   <script>
+      // Load hospital data from JSON on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch( "{{ url_for('static', filename='final_hospital_data.json') }}")
+       
+            .then(response => response.json())
+            .then(data => displayHospitalData(data))
+            .catch(error => console.error('Error loading hospital data:', error));
+    });
+
+    function displayHospitalData(data) {
+        const hospitalContainer = document.getElementById('hospital_list'); // Element to display hospitals
+        data.hospitals.forEach(hospital => {
+            const hospitalDiv = document.createElement('div');
+            hospitalDiv.className = 'hospital';
+            hospitalDiv.innerHTML = `
+                <h3 class="hospital-name" data-phone="${hospital.phone}">${hospital.name}</h3>
+                <div class="icon-container">
+                   <a href="tel:${hospital.phone}" class="contact-btn">
+                      <i class="fa-duotone fa-solid fa-phone" style="--fa-primary-color: #0773c5; --fa-secondary-color: #0773c5;"></i>
+                   </a>
+                   <a href="${hospital.location}" target="_blank" style="color: blue;">
+                      <i class="fas fa-map-marker-alt"></i>
+                   </a>
+                </div>
+            `;
+            hospitalContainer.appendChild(hospitalDiv);
+        });
+        setUpSearch();
+        setUpContactButtons();
+    }
+    function setUpSearch() {
+         const searchInput = document.getElementById('search_input');
+         searchInput.addEventListener('keyup', function() {
+            const query = this.value.toLowerCase();
+            const hospitals = document.querySelectorAll('.hospital');
+            hospitals.forEach(hospital => {
+               const name = hospital.querySelector('.hospital-name').textContent.toLowerCase();
+               hospital.style.display = name.includes(query) ? '' : 'none';
+            });
+         });
+      }
+
+      function setUpContactButtons() {
+   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+   document.querySelectorAll('.contact-btn').forEach(link => {
+      link.addEventListener('click', (e) => {
+         if (!isMobile) {
+            e.preventDefault();
+            alert("To access the calling feature on this website, use your phone!");
+         } else {
+            const phoneNumber = link.href; // Get the phone number from the link
+            window.location.href = phoneNumber; // Redirect to the phone's calling application
+            
+            // Show the confirmation dialog after initiating the call
+            setTimeout(() => {
+               const userResponse = confirm("Have you booked your appointment?");
+               if (userResponse) {
+                  window.location.href = 'index1.html'; // Redirect to index1.html
+               }
+               // If user clicks "No," nothing happens (stays on current page)
+            }, 1000); // Slight delay to ensure the call link is processed
+         }
+      });
+   });
+}
+
+      // Additional functionality
+      document.getElementById("search_input").addEventListener("keypress", function(event) {
+         if (event.key === "Enter") {
+             event.preventDefault(); // Prevent form submission
+             fetchResponse(event.target.value); // Call your function
+         }
+      }); 
+
+   </script>
+</body>
+</html>

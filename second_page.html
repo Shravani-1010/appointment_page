@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f9ff;
+            margin: 0;
+            padding: 0;
+        }
+        .page-title {
+            font-size: 2em;
+            color: #333;
+            margin-top: 45px; /* Increased margin to move the title down */
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        img {
+            width: 550px;
+            height: auto;
+            border: 3px solid rgb(151, 150, 150);
+            border-radius: 15px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .text-content {
+            max-width: 600px;
+            width: 100%;
+        }
+        h2 {
+            margin: -190px 0 10px 0; /* Move heading slightly up */
+            font-size: 1.5em;
+            color: #333;
+        }
+        p {
+            font-size: 1em;
+            color: #555;
+            margin-top: 10px;
+        }
+        .button-container {
+            margin-top: 50px; /* Space above the button */
+            padding: 20px;
+            margin-bottom: 50px;
+        }
+        .homepage-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff; /* Bootstrap primary color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+        }
+        .homepage-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">Our Services</h1>
+    
+    <section id="section1">
+        <img src="assets/bot.gif" alt="Image 1 Description">
+        <div class="text-content">
+            <h2>Effortless Appointment Booking</h2>
+            <p>Information about the first section.</p>
+        </div>
+    </section>
+    <section id="section2">
+        <img src="assets/bot.gif" alt="Image 2 Description">
+        <div class="text-content">
+            <h2>Calling & Hospital Location</h2>
+            <p>Information about the second section.</p>
+        </div>
+    </section>
+    <section id="section3">
+        <img src="assets/bot.gif" alt="Image 3 Description">
+        <div class="text-content">
+            <h2>Prescription Upload</h2>
+            <p>Information about the third section.</p>
+        </div>
+    </section>
+
+    <div class="button-container">
+        <a href="index.html" class="homepage-button">Go to Homepage</a> <!-- Link to your homepage -->
+    </div>
+</body>
+</html>
